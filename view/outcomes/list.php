@@ -33,7 +33,7 @@
                     </td>
                     <td></td>
                     <td>
-                        <a href="index.php?page=outcomes/add_outcomes" class="button secondary">Thêm chuẩn</a>
+                        <a href="index.php?page=outcomes/add_many_outcomes&template_id=<?= $template_id; ?>&parent_id=<?= $outcome->id; ?>" class="button secondary">Thêm chuẩn</a>
                     </td>
 
                 <?php else: ?>

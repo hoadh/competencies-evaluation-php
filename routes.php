@@ -67,6 +67,9 @@ switch ($page) {
     case 'outcomes/add_subheader':
         $outcomeController->add_subheader();
         break;
+    case 'outcomes/add_many_outcomes':
+        $outcomeController->add_many_outcomes();
+        break;
 
     default:
         $programController->index();

@@ -50,6 +50,58 @@ class OutcomeRepository
         return $res;
     }
 
+    public function createMany($template_id, $parent_id, $outcomeTitles) {
+        $next = $this->getMaxOrder($template_id, $parent_id);
+        $nextNumber = 0;
+        $parts = [];
+        $lastPart = 0;
+        $orders = [];
+        if (isset($next) && sizeof($next) > 0) {
+            if ($next[0] == '1') {
+                $nextNumber = 1;
+            } else if (strlen($next[1]) == 1) {
+                $nextNumber = (int) $next[0];
+            } else {
+                $parts = explode(".", $next[1]);
+                $lastPart = sizeof($parts) - 1;
+                $parts[$lastPart] = $next[0];
+                $nextNumber = (int) $next[0];
+            }
+        }
+
+
+        $sql = "INSERT INTO `outcomes`(`title`, `parent_id` , `template_id`, `order`) VALUES (?, ?, ?, ?)";
+        $statement = null;
+        $outcomeTitlesSize = sizeof($outcomeTitles);
+        if ($outcomeTitlesSize > 0) {
+
+            for($i=1; $i<$outcomeTitlesSize; $i++){
+                $sql .= ", (?, ?, ?, ?)";
+            }
+
+            $statement = $this->connection->prepare($sql);
+
+            $count = 1;
+
+            // need build the order string before binding params
+            for($i=0; $i<$outcomeTitlesSize; $i++){
+                $parts[$lastPart] = $nextNumber++;
+                $order = implode(".", $parts) . "";
+                $orders[] = $order;
+            }
+
+            for($i=0; $i<$outcomeTitlesSize; $i++){
+                $statement->bindParam($count++, $outcomeTitles[$i]);
+                $statement->bindParam($count++, $parent_id);
+                $statement->bindParam($count++, $template_id);
+                $statement->bindParam($count++, $orders[$i]);
+            }
+
+        }
+
+        return $statement->execute();
+    }
+
     public function getAll($template_id)
     {
         $sql = "SELECT * FROM `outcomes` where `template_id` = ? order by `order`";

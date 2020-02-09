@@ -90,4 +90,7 @@ class CommonService {
     public function createOutcome($outcome) {
         return $this->outcomeRepository->create($outcome);
     }
+    public function createManyOutcomes($template_id, $parent_id, $outcomes) {
+        return $this->outcomeRepository->createMany($template_id, $parent_id, $outcomes);
+    }
 }
