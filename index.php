@@ -16,13 +16,13 @@
 </head>
 <body>
 <?php
-
+include 'init.php';
+$templates_header = $commonService->getAllTemplates();
 include 'view/common/header.php';
-
 ?>
 
 <div class="grid-container" style="margin-top: 15px;">
-<?php include 'init.php'; ?>
+<?php include 'routes.php'; ?>
 </div>
 <script src="assets/js/vendor/jquery.js"></script>
 <script src="assets/js/vendor/what-input.js"></script>

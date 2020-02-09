@@ -5,16 +5,15 @@
             <div class="top-bar-left">
                 <ul class="dropdown menu" data-dropdown-menu>
                     <li class="menu-text">Đánh Giá Năng Lực</li>
-<!--                    <li class="has-submenu">-->
-                    <li>
+                    <li class="has-submenu">
                         <a href="index.php?page=templates/list">Template</a>
-<!--                        <ul class="submenu menu vertical" data-submenu>-->
-<!--                            <li><a href="index.php?page=templates/list">Quản lý template</a></li>-->
-<!--                            <li><hr></li>-->
-<!--                            <li><a href="#">Bootcamp JAVA 8x5</a></li>-->
-<!--                            <li><a href="#">Bootcamp JAVA 4x5</a></li>-->
-<!--                            <li><a href="#">Bootcamp PHP 8x5</a></li>-->
-<!--                        </ul>-->
+                        <ul class="submenu menu vertical" data-submenu>
+                            <li><a href="index.php?page=templates/list">Quản lý template</a></li>
+                            <li><hr></li>
+                            <?php foreach ($templates_header as $template): ?>
+                            <li><a href="index.php?page=cat_outcomes/list&template_id=<?= $template->id; ?>"><?= $template->name ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
                     </li>
                     <li><a href="index.php?page=programs/list">Chương trình học</a></li>
                     <li><a href="index.php?page=clazzes/list">Lớp & Học viên</a></li>
