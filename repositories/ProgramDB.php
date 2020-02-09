@@ -1,5 +1,7 @@
 <?php
-namespace Model;
+namespace Repository;
+
+use Model\Program;
 
 class ProgramDB
 {

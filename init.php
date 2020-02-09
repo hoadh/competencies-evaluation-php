@@ -14,9 +14,9 @@ require "controller/StudentsController.php";
 
 
 
-use \Model\DBConnection;
-use \Model\ProgramDB;
-use \Model\ClazzDB;
+use Repository\DBConnection;
+use Repository\ProgramDB;
+use Repository\ClazzDB;
 use Repository\StudentRepository;
 use Controller\ProgramController;
 use Controller\ClazzController;

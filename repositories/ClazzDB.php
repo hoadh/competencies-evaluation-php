@@ -1,5 +1,7 @@
 <?php
-namespace Model;
+namespace Repository;
+
+use Model\Clazz;
 
 class ClazzDB
 {
