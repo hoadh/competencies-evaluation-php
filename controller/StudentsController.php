@@ -4,6 +4,7 @@ namespace Controller;
 
 
 use Model\Clazz;
+use Model\Student;
 
 class StudentsController
 {
@@ -24,6 +25,47 @@ class StudentsController
         $clazz_id = $_GET['clazz_id'];
         $students = $this->commonService->getAllStudentsByClazzId($clazz_id);
         include 'view/students/list.php';
+    }
+
+    public function add_many()
+    {
+        $clazz_id = $_GET['clazz_id'];
+        $clazz = $this->commonService->getClazzById($clazz_id);
+        $clazz_name = $clazz->name ;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            include 'view/students/add_many_step_1.php';
+        } else {
+            $step = $_GET['step'];
+
+            if (isset($step) && $step == '2') {
+                $_students = $_POST['students'];
+                $students_array = explode("\n", $_students);
+
+                $students = [];
+                foreach ($students_array as $student) {
+                    $array = explode("\t", $student);
+                    if (sizeof($array) >= 3)
+                    $students[] = $array;
+                }
+
+                include 'view/students/add_many_step_2.php';
+            } else if (isset($step) && $step == '3') {
+
+                $names = $_POST['names'];
+                $codes = $_POST['codes'];
+
+                $students = [];
+                for($i=0; $i< sizeof($names); $i++){
+                    $student = new Student($names[$i], $codes[$i], $clazz_id);
+                    $students[] = $student;
+                }
+
+                $res = $this->commonService->createManyStudents($students);
+                $message = 'Đã lưu danh sách học viên vào lớp ' . $clazz_name;
+                include 'view/students/add_many_step_3.php';
+            }
+        }
     }
 
     public function add()

@@ -22,6 +22,30 @@ class StudentRepository
         return $statement->execute();
     }
 
+    public function createMany($students) {
+        $sql = "INSERT INTO `students`(`name`, `code` ,`clazz_id`) VALUES (?, ?, ?)";
+        $statement = null;
+        $studentsSize = sizeof($students);
+        if ($studentsSize > 0) {
+
+            for($i=1; $i<$studentsSize; $i++){
+                $sql .= ", (?, ?, ?)";
+            }
+
+            $statement = $this->connection->prepare($sql);
+
+            $count = 1;
+            for($i=0; $i<$studentsSize; $i++){
+                $statement->bindParam($count++, $students[$i]->name);
+                $statement->bindParam($count++, $students[$i]->code);
+                $statement->bindParam($count++, $students[$i]->clazz_id);
+            }
+
+        }
+
+        return $statement->execute();
+    }
+
     public function update($id, $student){
         $sql = "UPDATE `students` SET `name` = ?, `code` = ?, `clazz_id` = ? WHERE `id` = ?";
         $statement = $this->connection->prepare($sql);

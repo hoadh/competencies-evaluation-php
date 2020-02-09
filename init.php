@@ -81,6 +81,9 @@ switch ($page) {
     case 'students/list':
         $studentsController->index();
         break;
+    case 'students/add_many':
+        $studentsController->add_many();
+        break;
     default:
         $programController->index();
         break;

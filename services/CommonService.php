@@ -46,4 +46,7 @@ class CommonService {
     public function getAllStudentsByClazzId($clazzId) {
         return $this->studentsRepository->getAllByClazzId($clazzId);
     }
+    public function createManyStudents($students) {
+        return $this->studentsRepository->createMany($students);
+    }
 }
