@@ -3,10 +3,12 @@
 class CommonService {
     private $programRepository;
     private $clazzRepository;
+    private $studentsRepository;
 
-    public function __construct($programRepository, $clazzRepository) {
+    public function __construct($programRepository, $clazzRepository, $studentsRepository) {
         $this->programRepository = $programRepository;
         $this->clazzRepository = $clazzRepository;
+        $this->studentsRepository = $studentsRepository;
     }
 
     public function getProgramById($programId) {
@@ -39,5 +41,9 @@ class CommonService {
     }
     public function getAllClazzes() {
         return $this->clazzRepository->getAll();
+    }
+
+    public function getAllStudentsByClazzId($clazzId) {
+        return $this->studentsRepository->getAllByClazzId($clazzId);
     }
 }

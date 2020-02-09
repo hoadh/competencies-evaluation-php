@@ -2,18 +2,26 @@
 
 require 'model/Clazz.php';
 require "model/Program.php";
+require 'model/Student.php';
 require "repositories/DBConnection.php";
 require "repositories/ProgramDB.php";
 require 'repositories/ClazzDB.php';
+require 'repositories/StudentRepository.php';
 require "services/CommonService.php";
 require "controller/ProgramController.php";
 require "controller/ClazzController.php";
+require "controller/StudentsController.php";
 
-use Controller\ClazzController;
+
+
 use \Model\DBConnection;
 use \Model\ProgramDB;
 use \Model\ClazzDB;
-use \Controller\ProgramController;
+use Repository\StudentRepository;
+use Controller\ProgramController;
+use Controller\ClazzController;
+use Controller\StudentsController;
+
 
 // Make sure all dependencies are initialized before injecting
 
@@ -24,13 +32,15 @@ $connection = $dbConnection->connect();
 // Instances of repositories
 $programRepository = new ProgramDB($connection);
 $clazzRepository = new ClazzDB($connection);
+$studentsRepository = new StudentRepository($connection);
 
 // Instance of service
-$commonService = new CommonService($programRepository, $clazzRepository);
+$commonService = new CommonService($programRepository, $clazzRepository, $studentsRepository);
 
 // Instances of controllers
 $programController = new ProgramController($commonService);
 $clazzController = new ClazzController($commonService);
+$studentsController = new StudentsController($commonService);
 
 // Routing to controllers
 $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : NULL;
@@ -66,6 +76,10 @@ switch ($page) {
         break;
     case 'clazzes/list':
         $clazzController->index();
+        break;
+
+    case 'students/list':
+        $studentsController->index();
         break;
     default:
         $programController->index();

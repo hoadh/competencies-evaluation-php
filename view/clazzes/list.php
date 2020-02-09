@@ -16,7 +16,7 @@
             <tbody>
             <?php foreach ($clazzes as $clazz): ?>
                 <tr>
-                    <td><a href="index.php?page=clazzes/view&id=<?php echo $clazz->id; ?>"><?php echo $clazz->name; ?></a></td>
+                    <td><a href="index.php?page=students/list&clazz_id=<?php echo $clazz->id; ?>"><?php echo $clazz->name; ?></a></td>
                     <td><?php echo $clazz->coach; ?></td>
                     <td>
                         <a href="index.php?page=clazzes/edit&id=<?php echo $clazz->id; ?>" class="button float-right">Cập nhật</a>
