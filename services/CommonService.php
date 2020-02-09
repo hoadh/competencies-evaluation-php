@@ -4,11 +4,13 @@ class CommonService {
     private $programRepository;
     private $clazzRepository;
     private $studentsRepository;
+    private $templatesRepository;
 
-    public function __construct($programRepository, $clazzRepository, $studentsRepository) {
+    public function __construct($programRepository, $clazzRepository, $studentsRepository, $templatesRepository) {
         $this->programRepository = $programRepository;
         $this->clazzRepository = $clazzRepository;
         $this->studentsRepository = $studentsRepository;
+        $this->templatesRepository = $templatesRepository;
     }
 
     public function getProgramById($programId) {
@@ -49,4 +51,21 @@ class CommonService {
     public function createManyStudents($students) {
         return $this->studentsRepository->createMany($students);
     }
+
+    public function getTemplateById($templateId) {
+        return $this->templatesRepository->get($templateId);
+    }
+    public function deleteTemplateById($templateId) {
+        return $this->templatesRepository->delete($templateId);
+    }
+    public function updateTemplateById($templateId, $template) {
+        return $this->templatesRepository->update($templateId, $template);
+    }
+    public function createTemplate($template) {
+        return $this->templatesRepository->create($template);
+    }
+    public function getAllTemplates() {
+        return $this->templatesRepository->getAll();
+    }
+
 }
