@@ -3,7 +3,7 @@ namespace Repository;
 
 use Model\Program;
 
-class ProgramDB
+class ProgramRepository
 {
     public $connection;
 

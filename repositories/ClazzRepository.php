@@ -3,7 +3,7 @@ namespace Repository;
 
 use Model\Clazz;
 
-class ClazzDB
+class ClazzRepository
 {
     public $connection;
 

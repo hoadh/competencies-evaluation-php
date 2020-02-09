@@ -4,8 +4,8 @@ require 'model/Clazz.php';
 require "model/Program.php";
 require 'model/Student.php';
 require "repositories/DBConnection.php";
-require "repositories/ProgramDB.php";
-require 'repositories/ClazzDB.php';
+require "repositories/ProgramRepository.php";
+require 'repositories/ClazzRepository.php';
 require 'repositories/StudentRepository.php';
 require "services/CommonService.php";
 require "controller/ProgramController.php";
@@ -15,8 +15,8 @@ require "controller/StudentsController.php";
 
 
 use Repository\DBConnection;
-use Repository\ProgramDB;
-use Repository\ClazzDB;
+use Repository\ProgramRepository;
+use Repository\ClazzRepository;
 use Repository\StudentRepository;
 use Controller\ProgramController;
 use Controller\ClazzController;
@@ -30,8 +30,8 @@ $dbConnection = new DBConnection("mysql:host=localhost;dbname=dgnl","root", "" )
 $connection = $dbConnection->connect();
 
 // Instances of repositories
-$programRepository = new ProgramDB($connection);
-$clazzRepository = new ClazzDB($connection);
+$programRepository = new ProgramRepository($connection);
+$clazzRepository = new ClazzRepository($connection);
 $studentsRepository = new StudentRepository($connection);
 
 // Instance of service
