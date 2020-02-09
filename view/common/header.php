@@ -11,7 +11,7 @@
                             <li><a href="index.php?page=templates/list">Quản lý template</a></li>
                             <li><hr></li>
                             <?php foreach ($templates_header as $template): ?>
-                            <li><a href="index.php?page=cat_outcomes/list&template_id=<?= $template->id; ?>"><?= $template->name ?></a></li>
+                            <li><a href="index.php?page=outcomes/list&template_id=<?= $template->id; ?>"><?= $template->name ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </li>

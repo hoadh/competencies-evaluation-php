@@ -1,16 +1,20 @@
 <?php
 
+use Model\Outcome;
+
 class CommonService {
     private $programRepository;
     private $clazzRepository;
     private $studentsRepository;
     private $templatesRepository;
+    private $outcomeRepository;
 
-    public function __construct($programRepository, $clazzRepository, $studentsRepository, $templatesRepository) {
+    public function __construct($programRepository, $clazzRepository, $studentsRepository, $templatesRepository, $outcomeRepository) {
         $this->programRepository = $programRepository;
         $this->clazzRepository = $clazzRepository;
         $this->studentsRepository = $studentsRepository;
         $this->templatesRepository = $templatesRepository;
+        $this->outcomeRepository = $outcomeRepository;
     }
 
     public function getProgramById($programId) {
@@ -68,4 +72,22 @@ class CommonService {
         return $this->templatesRepository->getAll();
     }
 
+    /* Outcomes */
+    public function getAllOutcomes($template_id) {
+        return $this->outcomeRepository->getAll($template_id);
+    }
+    public function getAllOutcomesByParentId($template_id, $parent_id) {
+        return $this->outcomeRepository->getAllByParentId($template_id, $parent_id);
+    }
+    public function createOutcomeHeader($headerTitle) {
+        $header = new Outcome($headerTitle, null, false);
+        return $this->outcomeRepository->create($header);
+    }
+    public function createOutcomeSubheader($subheaderTitle, $headerId) {
+        $subheader = new Outcome($subheaderTitle, $headerId, false);
+        return $this->outcomeRepository->create($subheader);
+    }
+    public function createOutcome($outcome) {
+        return $this->outcomeRepository->create($outcome);
+    }
 }

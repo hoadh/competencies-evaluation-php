@@ -58,6 +58,9 @@ switch ($page) {
     case 'templates/list':
         $templateController->index();
         break;
+    case 'outcomes/list':
+        $outcomeController->index();
+        break;
 
     default:
         $programController->index();

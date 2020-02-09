@@ -16,7 +16,7 @@
             <tbody>
             <?php foreach ($templates as $template): ?>
                 <tr>
-                    <td><a href="index.php?page=cat_outcomes/list&template_id=<?php echo $template->id; ?>"><?php echo $template->name; ?></a></td>
+                    <td><a href="index.php?page=outcomes/list&template_id=<?php echo $template->id; ?>"><?php echo $template->name; ?></a></td>
                     <td><?php echo $template->program_name; ?></td>
                     <td>
                         <a href="index.php?page=templates/edit&id=<?php echo $template->id; ?>" class="button float-right">Cập nhật</a>
