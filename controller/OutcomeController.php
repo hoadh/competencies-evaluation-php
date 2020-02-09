@@ -4,6 +4,8 @@
 namespace Controller;
 
 
+use Model\Outcome;
+
 class OutcomeController
 {
     public $commonService;
@@ -26,11 +28,28 @@ class OutcomeController
     }
 
     public function add_header() {
-        include 'view/outcomes/add_header.php';
+        $template_id = $_GET['template_id'];
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+            include 'view/outcomes/add_header.php';
+        } else {
+            $header = new Outcome($template_id, $_POST['title'], 0, false);
+            $res = $this->commonService->createOutcome($header);
+            $message = 'Đã được tạo';
+            include 'view/outcomes/add_header.php';
+        }
     }
 
     public function add_subheader() {
-        include 'view/outcomes/add_subheader.php';
+        $template_id = $_GET['template_id'];
+        $parent_id = $_GET['parent_id'];
+        if($_SERVER['REQUEST_METHOD'] === 'GET'){
+            include 'view/outcomes/add_subheader.php';
+        } else {
+            $header = new Outcome($template_id, $_POST['title'], $_POST['parent_id'], false);
+            $res = $this->commonService->createOutcome($header);
+            $message = 'Đã được tạo';
+            include 'view/outcomes/add_subheader.php';
+        }
     }
 
 }

@@ -61,6 +61,12 @@ switch ($page) {
     case 'outcomes/list':
         $outcomeController->index();
         break;
+    case 'outcomes/add_header':
+        $outcomeController->add_header();
+        break;
+    case 'outcomes/add_subheader':
+        $outcomeController->add_subheader();
+        break;
 
     default:
         $programController->index();

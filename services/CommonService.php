@@ -79,12 +79,12 @@ class CommonService {
     public function getAllOutcomesByParentId($template_id, $parent_id) {
         return $this->outcomeRepository->getAllByParentId($template_id, $parent_id);
     }
-    public function createOutcomeHeader($headerTitle) {
-        $header = new Outcome($headerTitle, null, false);
+    public function createOutcomeHeader($template_id, $headerTitle) {
+        $header = new Outcome($template_id, $headerTitle, "", false);
         return $this->outcomeRepository->create($header);
     }
-    public function createOutcomeSubheader($subheaderTitle, $headerId) {
-        $subheader = new Outcome($subheaderTitle, $headerId, false);
+    public function createOutcomeSubheader($template_id, $subheaderTitle, $headerId) {
+        $subheader = new Outcome($template_id, $subheaderTitle, $headerId, false);
         return $this->outcomeRepository->create($subheader);
     }
     public function createOutcome($outcome) {
