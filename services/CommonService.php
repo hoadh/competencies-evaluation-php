@@ -8,13 +8,18 @@ class CommonService {
     private $studentsRepository;
     private $templatesRepository;
     private $outcomeRepository;
+    private $evaluationRepository;
+    private $evaluationDetailRepository;
 
-    public function __construct($programRepository, $clazzRepository, $studentsRepository, $templatesRepository, $outcomeRepository) {
+    public function __construct($programRepository, $clazzRepository, $studentsRepository, $templatesRepository,
+                                $outcomeRepository, $evaluationRepository, $evaluationDetailRepository) {
         $this->programRepository = $programRepository;
         $this->clazzRepository = $clazzRepository;
         $this->studentsRepository = $studentsRepository;
         $this->templatesRepository = $templatesRepository;
         $this->outcomeRepository = $outcomeRepository;
+        $this->evaluationRepository = $evaluationRepository;
+        $this->evaluationDetailRepository = $evaluationDetailRepository;
     }
 
     public function getProgramById($programId) {
@@ -92,5 +97,12 @@ class CommonService {
     }
     public function createManyOutcomes($template_id, $parent_id, $outcomes) {
         return $this->outcomeRepository->createMany($template_id, $parent_id, $outcomes);
+    }
+
+    public function createEvaluation($evaluation) {
+        return $this->evaluationRepository->create($evaluation);
+    }
+    public function createManyEvaluationDetails($evaluationDetails) {
+        return $this->evaluationDetailRepository->createMany($evaluationDetails);
     }
 }

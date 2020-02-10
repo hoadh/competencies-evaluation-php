@@ -21,7 +21,7 @@
                     <td><a href="index.php?page=students/view&clazz_id=<?php echo $student->id; ?>"><?php echo $student->name; ?></a></td>
                     <td><?php echo $student->code; ?></td>
                     <td>
-                        <a href="index.php?page=students/edit&id=<?php echo $student->id; ?>" class="button float-right">Cập nhật</a>
+                        <a href="index.php?page=evaluations/step_1&student_id=<?php echo $student->id; ?>" class="button float-right">Đánh giá</a>
                     </td>
                     <td>
                         <a href="index.php?page=students/delete&id=<?php echo $student->id; ?>" class="alert button">Xoá</a>

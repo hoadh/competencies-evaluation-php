@@ -70,7 +70,12 @@ switch ($page) {
     case 'outcomes/add_many_outcomes':
         $outcomeController->add_many_outcomes();
         break;
-
+    case 'evaluations/step_1':
+        $evaluationController->step_1();
+        break;
+    case 'evaluations/step_2':
+        $evaluationController->step_2();
+        break;
     default:
         $programController->index();
         break;
