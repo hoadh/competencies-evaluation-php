@@ -27,7 +27,7 @@ class EvaluationController
     }
 
     public function view() {
-        $evaluation_id = $_GET['evaluation_id'];
+        $evaluation_id = $_GET['id'];
         $evaluations = $this->commonService->getEvaluationDetailsByEvaluationId($evaluation_id);
         include 'view/evaluations/view.php';
     }
