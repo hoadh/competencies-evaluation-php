@@ -17,13 +17,14 @@ class OutcomeRepository
 
     public function create($outcome) {
         $next = $this->getMaxOrder($outcome->template_id, $outcome->parent_id);
-//        var_dump($next);
         $order = "";
-        if (isset($next) && sizeof($next) > 0) {
-            if ($next[0] == '1') {
-                $order = '1';
+        if ($outcome->parent_id == 0) {
+            $order = $next[0];
+        } else if (isset($next) && sizeof($next) > 0) {
+            if ($next[0] == '1' && $next[1] == null) {
+                $order = '1.1';
             } else if (strlen($next[1]) == 1) {
-                $order = $next[0];
+                $order = $next[1] . "." . $next[0];
             } else {
                 $parts = explode(".", $next[1]);
                 $parts[sizeof($parts) - 1] = $next[0];
@@ -42,7 +43,7 @@ class OutcomeRepository
         $statement->bindParam(4, $outcome->template_id);
         $statement->bindParam(5, $order);
         $res = $statement->execute();
-        $statement->debugDumpParams();
+//        $statement->debugDumpParams();
         if (!$res) {
             echo "\PDO::errorInfo():\n";
             var_dump($this->connection->errorInfo());
@@ -57,15 +58,19 @@ class OutcomeRepository
         $lastPart = 0;
         $orders = [];
         if (isset($next) && sizeof($next) > 0) {
-            if ($next[0] == '1') {
+            if ($next[0] == '1' && $next[1] == null) {
                 $nextNumber = 1;
             } else if (strlen($next[1]) == 1) {
                 $nextNumber = (int) $next[0];
             } else {
                 $parts = explode(".", $next[1]);
-                $lastPart = sizeof($parts) - 1;
-                $parts[$lastPart] = $next[0];
+                $parts[] = $next[0];
                 $nextNumber = (int) $next[0];
+                $lastPart = sizeof($parts) - 1;
+                /*
+                $largest = ((int) $next[0] > (int) $parts[$lastPart]) ? (int) $next[0] : (int) $parts[$lastPart];
+                $parts[] = $largest;
+                $nextNumber = (int) $largest;*/
             }
         }
 
@@ -147,12 +152,18 @@ class OutcomeRepository
     {
         $sql = "SELECT count(*)+1 as `next` FROM `outcomes` where `template_id` = ? and `parent_id` = ?
                 union
-                SELECT max(`order`) as `next` FROM `outcomes` where `template_id` = ? and `parent_id` = ?";
+                SELECT max(`order`) as `next` FROM (
+                    SELECT `order` FROM `outcomes` where `template_id` = ? and `id` = ?
+                    union
+                    SELECT `order` FROM `outcomes` where `template_id` = ? and `parent_id` = ?
+                ) a";
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(1, $template_id);
         $statement->bindParam(2, $parent_id);
         $statement->bindParam(3, $template_id);
         $statement->bindParam(4, $parent_id);
+        $statement->bindParam(5, $template_id);
+        $statement->bindParam(6, $parent_id);
         $statement->execute();
         $result = $statement->fetchAll();
         if (!$statement) {
