@@ -73,6 +73,9 @@ switch ($page) {
     case 'evaluations/step_1':
         $evaluationController->step_1();
         break;
+    case 'evaluations/list':
+        $evaluationController->list();
+        break;
     case 'evaluations/step_2':
         $evaluationController->step_2();
         break;

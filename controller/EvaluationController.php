@@ -19,6 +19,13 @@ class EvaluationController
         }
 
     }
+
+    public function list() {
+        $student_id = $id = $_GET['student_id'];
+        $evaluations = $this->commonService->getAllEvaluationByStudentId($student_id);
+        include 'view/evaluations/list.php';
+    }
+
     public function step_1() {
         $student_id = $id = $_GET['student_id'];
         $templates = $this->commonService->getAllTemplates();

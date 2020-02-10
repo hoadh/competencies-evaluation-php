@@ -102,6 +102,9 @@ class CommonService {
     public function createEvaluation($evaluation) {
         return $this->evaluationRepository->create($evaluation);
     }
+    public function getAllEvaluationByStudentId($student_id) {
+        return $this->evaluationRepository->getAllByStudentId($student_id);
+    }
     public function createManyEvaluationDetails($evaluationDetails) {
         return $this->evaluationDetailRepository->createMany($evaluationDetails);
     }
