@@ -4,6 +4,8 @@
 namespace Repository;
 
 
+use Model\Outcome;
+
 class EvaluationDetailRepository
 {
     public $connection;
@@ -35,5 +37,38 @@ class EvaluationDetailRepository
         }
         // $statement->debugDumpParams();
         return $statement->execute();
+    }
+
+    public function getDetailByEvaluationId($evaluation_id) {
+        $sql = 'SELECT o.title,
+                       o.can_evaluate,
+                       o.parent_id,
+                       o.`order`,
+                       CASE WHEN ed.evaluate = 0 THEN \'N/A\'
+                            WHEN ed.evaluate = 1 THEN \'Chưa Đạt\'
+                            WHEN ed.evaluate = 2 THEN \'Đạt\'
+                            WHEN ed.evaluate IS NULL THEN \'\'
+                        END AS `evaluate`
+                FROM outcomes o
+                LEFT JOIN evaluations e on o.template_id = e.template_id
+                LEFT JOIN evaluation_details ed on e.id = ed.evaluation_id and ed.outcome_id = o.id
+                WHERE e.id = ?
+                ORDER BY o.`order`';
+
+        $statement = $this->connection->prepare($sql);
+        $statement->bindParam(1, $evaluation_id);
+        $statement->execute();
+        $result = $statement->fetchAll();
+        if (!$statement) {
+            echo "\PDO::errorInfo():\n";
+            var_dump($this->connection->errorInfo());
+        }
+        $outcomes = [];
+        foreach ($result as $row) {
+            $outcome = new Outcome('', $row['title'], $row['parent_id'], $row['can_evaluate']);
+            $outcome->evaluate = $row['evaluate'];
+            $outcomes[] = $outcome;
+        }
+        return $outcomes;
     }
 }

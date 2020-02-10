@@ -108,4 +108,7 @@ class CommonService {
     public function createManyEvaluationDetails($evaluationDetails) {
         return $this->evaluationDetailRepository->createMany($evaluationDetails);
     }
+    public function getEvaluationDetailsByEvaluationId($evaluation_id) {
+        return $this->evaluationDetailRepository->getDetailByEvaluationId($evaluation_id);
+    }
 }

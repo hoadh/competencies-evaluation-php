@@ -26,6 +26,14 @@ class EvaluationController
         include 'view/evaluations/list.php';
     }
 
+    public function view() {
+        $evaluation_id = $_GET['evaluation_id'];
+        $evaluations = $this->commonService->getEvaluationDetailsByEvaluationId($evaluation_id);
+        include 'view/evaluations/view.php';
+    }
+
+
+
     public function step_1() {
         $student_id = $id = $_GET['student_id'];
         $templates = $this->commonService->getAllTemplates();

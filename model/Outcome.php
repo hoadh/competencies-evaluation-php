@@ -12,6 +12,7 @@ class Outcome
     public $can_evaluate;
     public $template_id;
     public $order;
+    public $evaluate;
 
     public function __construct($template_id, $title, $parentId, $canEvaluate = true)
     {

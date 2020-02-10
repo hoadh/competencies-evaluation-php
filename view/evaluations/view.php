@@ -13,9 +13,9 @@
             </tr>
             </thead>
             <tbody>
-<!--            index.php?page=evaluations/step_2&template_id=--><?//= $template->id; ?><!--&student_id=--><?//= $student_id; ?>
+
             <form method="post" action="">
-            <?php $header = 0; $subheader = 0; $outnum = 0; foreach ($outcomes as $outcome): ?>
+            <?php $header = 0; $subheader = 0; $outnum = 0; foreach ($evaluations as $outcome): ?>
                 <tr>
                     <?php if ($outcome->can_evaluate): ?>
                         <td>
@@ -27,11 +27,7 @@
                         </td>
                         <td>
 <!--                            <a href="index.php?page=outcomes/delete&id=--><?php //echo $outcome->id; ?><!--" class="alert button">Xoá</a>-->
-                            <select name="evaluations[]">
-                                <option value="<?= $outcome->id; ?>_0">N/A</option>
-                                <option value="<?= $outcome->id; ?>_1">Chưa Đạt</option>
-                                <option value="<?= $outcome->id; ?>_2">Đạt</option>
-                            </select>
+                            <p><?= $outcome->evaluate; ?></p>
                         </td>
                     <?php elseif ($outcome->parent_id != 0): ?>
                         <td>
@@ -53,10 +49,6 @@
                 </tr>
             <?php endforeach; ?>
 
-                <div class="form-group">
-                    <button type="submit" value="" class="button">Thêm</button>
-                    <a href="index.php?page=clazzes/list" class="button secondary">Huỷ</a>
-                </div>
             </form>
             </tbody>
         </table>
