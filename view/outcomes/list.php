@@ -17,7 +17,8 @@
                 <tr>
                 <?php if ($outcome->can_evaluate): ?>
                     <td>
-                        <a href="index.php?page=outcomes/edit&id=<?php echo $outcome->id; ?>">
+<!--                        <a href="index.php?page=outcomes/edit&id=--><?php //echo $outcome->id; ?><!--">-->
+                        <a href="#">
                             <?php echo $header . "." . $subheader . "." . ++$outnum . ". " . $outcome->title; ?>
                         </a>
                     </td>
